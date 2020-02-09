@@ -11,11 +11,13 @@ No bluetooh is used.
 
 Download the code in your pc:
 
+git clone https://github.com/rubencardenes/rc-pi-car.git
 
 # Installation instructions on the PC:
 
 Download the code in your Raspberry PI:
 
+git clone https://github.com/rubencardenes/rc-pi-car.git
 
 The following instructions are required on your Raspberry PI to send the video to a browser:
 
