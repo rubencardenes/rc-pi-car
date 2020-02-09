@@ -13,17 +13,17 @@ Download the code in your pc:
 
 git clone https://github.com/rubencardenes/rc-pi-car.git
 
-# Installation instructions on the PC:
+# Installation instructions on the Raspberry PI:
 
 Download the code in your Raspberry PI:
 
 git clone https://github.com/rubencardenes/rc-pi-car.git
 
-The following instructions are required on your Raspberry PI to send the video to a browser:
+The following instructions are required to setup a http video stream on the Raspberry PI and be able to see that in any browser on your PC:
 
-Enable the camera using 
+First, make sure you enable the camera on the PI: 
 `sudo raspi-config`
-Select Interfacing options
+Select: Interfacing options
 Enable Camera 
 
 Now install the h264-live-player from 131 user:  
@@ -33,6 +33,7 @@ git clone git@github.com:131/h264-live-player.git player
 cd player
 npm install
 ```
+
 # Running the script 
 
 Suppose, the IP of your Raspberry PI is 192.168.1.20 
@@ -50,8 +51,12 @@ Now in your PC open a web page:
 http://192.168.1.20:8080
 
 
-
-
-
 ## Credits
+
+User 131 on GitHub for the h264-live-player
+Clay L. McLeod  <clay.l.mcleod@gmail.com> for the PS4 controller class 
+http://www.elektronx.de/motoren-mit-ps4-controller-steuern/ for the control callbacks
+Youtube sentdex channel for great explanation on sockets: https://www.youtube.com/watch?v=Lbfe3-v7yE0&t=238s
+
+
 
