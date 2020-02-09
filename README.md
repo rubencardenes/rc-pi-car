@@ -1,6 +1,9 @@
 # rc-pi-car
 Python code to control remotely a Raspberry PI car using Playstation 4 controller connected to a PC and receieve the video from a camera located in the car to a browser
 
+![rc-pi-car prototype](/rc-pi-car-prototype.png)
+
+
 # Description:
 
 This code is to control remotely a Raspberry PI car with a PS4 controller connected to a PC. The PS4 Controller will be connected to a PC using USB cable. If you have a Raspberry PI camera, the video is sent to the PC and can be viewed in a web browser. No driver or special installation is required on the PC nor the Raspberry PI. 
@@ -78,6 +81,15 @@ python controller_client.py 192.168.1.20
 http://192.168.1.20:8080
 
 Enjoy driving!
+
+## Driving controls
+
+* Left stick: Forward/backwards movement (rear motor)     
+* Right stick: Left/right steering (front motor)
+* R1: activate deactivate incoming control messages to the terminal 
+
+The more you press forward/backwards on the stick, the more acceleration is provided. Same happens for left/right steering
+This feature is provided by the ENA_PWM and ENB_PWM ChangeDutyCycle(value) method (lines 122, 123). The value given controls the power provided to the motors.    
 
 ## Notes
 
