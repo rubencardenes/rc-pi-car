@@ -146,10 +146,10 @@ while True:
                                                                                                   right_axis_control)
                 if R2:
                     max_vz += 1
-                    max_vz = max(max_vz, 100)
+                    max_vz = min(max_vz, 100)
                 if L2:
                     max_lr += 1
-                    max_lr = max(max_lr, 100)
+                    max_lr = min(max_lr, 100)
                 if X:
                     max_lr = 60
                     max_vz = 50
