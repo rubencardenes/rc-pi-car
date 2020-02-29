@@ -47,8 +47,14 @@ stickLeft_Vert   = 1
 stickRight_Horiz = 2
 stickRight_Vert  = 3
 
+sq = 0
+x  = 1
 r1 = 4
 l1 = 5
+
+
+max_vz = 50
+max_lr = 60
 
 two_axis_control = False
 left_axis_control = True
@@ -128,6 +134,8 @@ while True:
                 # Button data (True or False)
                 R1 = event['button'][r1]
                 L1 = event['button'][l1]
+                X  = event['button'][x]
+                SQ = event['button'][sq]
 
                 # if R1 is received, we turn verbose mode on or off
                 if R1:
@@ -136,6 +144,15 @@ while True:
                     two_axis_control, left_axis_control, right_axis_control = change_axis_control(two_axis_control,
                                                                                                   left_axis_control,
                                                                                                   right_axis_control)
+                if R2:
+                    max_vz += 1
+                    max_vz = max(max_vz, 100)
+                if L2:
+                    max_lr += 1
+                    max_lr = max(max_lr, 100)
+                if X:
+                    max_lr = 60
+                    max_vz = 50
 
                 if verbose:
                     os.system('clear') # this system call can make the reception a bit slow
@@ -144,9 +161,9 @@ while True:
                     print("Control modes ", two_axis_control, left_axis_control, right_axis_control)
 
                 dc_vz, dc_lr = 0, 0
-                if abs(StickVZ) > 0.1: dc_vz = (abs(StickVZ)) * 50
-                if abs(StickLR) > 0.1: dc_lr = (abs(StickLR)) * 60
-                if verbose: print(dc_vz, dc_lr)
+                if abs(StickVZ) > 0.1: dc_vz = (abs(StickVZ)) * max_vz
+                if abs(StickLR) > 0.1: dc_lr = (abs(StickLR)) * max_lr
+                if verbose: print("dc_vz {} dc_lr {}; max_vz {} max_lr {}".format(dc_vz, dc_lr, max_vz, max_lr))
                 ENA_PWM.ChangeDutyCycle(dc_vz) # Motor speed control for rear wheels
                 ENB_PWM.ChangeDutyCycle(dc_lr) # Motor speed control for direction wheels
 
