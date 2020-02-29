@@ -50,6 +50,10 @@ stickRight_Vert  = 3
 r1 = 4
 l1 = 5
 
+two_axis_control = False
+left_axis_control = True
+right_axis_control = False
+
 os.system("node /home/pi/PycharmProjects/h264-live-player-master/server-rpi.js &")
 
 verbose = True
