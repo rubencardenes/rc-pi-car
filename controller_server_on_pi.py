@@ -49,6 +49,8 @@ stickRight_Vert  = 3
 
 sq = 0
 x  = 1
+cr = 2
+tr = 3
 r1 = 4
 l1 = 5
 
@@ -136,6 +138,7 @@ while True:
                 L1 = event['button'][l1]
                 X  = event['button'][x]
                 SQ = event['button'][sq]
+                CR = event['button'][cr]
 
                 # if R1 is received, we turn verbose mode on or off
                 if R1:
@@ -144,10 +147,10 @@ while True:
                     two_axis_control, left_axis_control, right_axis_control = change_axis_control(two_axis_control,
                                                                                                   left_axis_control,
                                                                                                   right_axis_control)
-                if R2:
+                if CR:
                     max_vz += 1
                     max_vz = min(max_vz, 100)
-                if L2:
+                if SQ:
                     max_lr += 1
                     max_lr = min(max_lr, 100)
                 if X:
