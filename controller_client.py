@@ -30,7 +30,7 @@ from threading import Thread
 HEADERSIZE = 10
 
 class PS4Controller(object):
-    """Class representing the PS4 controller. Pretty straightforward functionality."""
+    """Class representing the PS4 controller"""
 
     controller = None
     axis_data = None
@@ -54,8 +54,10 @@ class PS4Controller(object):
         print('connecting to {} port {}'.format(address, port))
         self.sock.connect(server_address)
 
+        self.verbose = True
+
     def listen_and_send(self):
-        """Listen for events to happen"""
+        """Listen for events to happen and send commands"""
         
         if not self.axis_data:
             self.axis_data = {}
@@ -96,13 +98,17 @@ class PS4Controller(object):
                     message = bytes(f"{len(message):<{HEADERSIZE}}", 'utf-8') + message
                     self.sock.sendall(message)
 
-                    os.system('clear')
-                    print("Button ")
-                    pprint.pprint(self.button_data)
-                    print("Axis ")
-                    pprint.pprint(self.axis_data)
-                    # print("Motion ")
-                    # pprint.pprint(self.hat_data)
+                    if self.button_data[4]:
+                        self.verbose = not self.verbose
+
+                    if self.verbose:
+                        os.system('clear')
+                        print("Button ")
+                        pprint.pprint(self.button_data)
+                        print("Axis ")
+                        pprint.pprint(self.axis_data)
+                        # print("Motion ")
+                        # pprint.pprint(self.hat_data)
 
 
 if __name__ == "__main__":

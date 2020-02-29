@@ -42,8 +42,10 @@ ENB_PWM.start(0)
 
 axisR2 = 4
 axisL2 = 5
-stickVZ = 1
-stickLR = 2
+stickLeft_Horiz  = 0
+stickLeft_Vert   = 1
+stickRight_Horiz = 2
+stickRight_Vert  = 3
 
 r1 = 4
 l1 = 5
@@ -60,6 +62,10 @@ sock.bind(server_address)
 sock.listen(1)
 
 HEADERSIZE = 10
+
+def change_axis_control(a,b,c):
+    a, b, c = c, a, b
+    return a, b, c
 
 while True:
     connection, client_address = sock.accept()
@@ -97,10 +103,23 @@ while True:
                     R2 = event['axis'][axisR2]
                 if axisL2 in event['axis']:
                     L2 = event['axis'][axisL2]
-                if stickVZ in event['axis']:
-                    StickVZ = event['axis'][stickVZ]
-                if stickLR in event['axis']:
-                    StickLR = event['axis'][stickLR]
+
+                # Two axis control
+                if two_axis_control:
+                    event_index_vz = stickLeft_Vert
+                    event_index_lr = stickRight_Horiz
+                if left_axis_control:
+                    event_index_vz = stickLeft_Vert
+                    event_index_lr = stickLeft_Horiz
+                if right_axis_control:
+                    event_index_vz = stickRight_Vert
+                    event_index_lr = stickRight_Horiz
+
+                if event_index_vz in event['axis']:
+                    StickVZ = event['axis'][event_index_vz]
+                if event_index_lr in event['axis']:
+                    StickLR = event['axis'][event_index_lr]
+
 
                 # Button data (True or False)
                 R1 = event['button'][r1]
@@ -109,11 +128,16 @@ while True:
                 # if R1 is received, we turn verbose mode on or off
                 if R1:
                     verbose = not verbose
+                if L1:
+                    two_axis_control, left_axis_control, right_axis_control = change_axis_control(two_axis_control,
+                                                                                                  left_axis_control,
+                                                                                                  right_axis_control)
 
                 if verbose:
                     os.system('clear') # this system call can make the reception a bit slow
                     # Printing some of the received command values
                     print(f"R2 {R2}, R1 {R1}, L2 {L2}, L1 {L1}, StickVZ {StickVZ}, StickLR {StickLR}")
+                    print("Control modes ", two_axis_control, left_axis_control, right_axis_control)
 
                 dc_vz, dc_lr = 0, 0
                 if abs(StickVZ) > 0.1: dc_vz = (abs(StickVZ)) * 50
