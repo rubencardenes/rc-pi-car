@@ -1,5 +1,5 @@
 ####################################################################
-# Ruben Cardenes, Clay L. McLeod  -- Feb 2019
+# Ruben Cardenes, Clay L. McLeod  -- Feb 2020
 #
 # File:        controller_client.py
 #
@@ -58,7 +58,8 @@ class PS4Controller(object):
 
     def listen_and_send(self):
         """Listen for events to happen and send commands"""
-        
+        hadEvent = False
+
         if not self.axis_data:
             self.axis_data = {}
 
@@ -92,14 +93,18 @@ class PS4Controller(object):
 
                 if hadEvent:
 
+                    # If platform is linux we need to change some values in axis_data
+                    if sys.platform == 'linux':
+                        self.axis_data[2], self.axis_data[3], self.axis_data[4] = self.axis_data[4], self.axis_data[2], self.axis_data[3]
+
                     self.event_dict['axis'] = self.axis_data
                     self.event_dict['button'] = self.button_data
                     message = pickle.dumps(self.event_dict, protocol=4)
                     message = bytes(f"{len(message):<{HEADERSIZE}}", 'utf-8') + message
                     self.sock.sendall(message)
 
-                    if self.button_data[4]:
-                        self.verbose = not self.verbose
+                    #if self.button_data[4]:
+                    #    self.verbose = not self.verbose
 
                     if self.verbose:
                         os.system('clear')

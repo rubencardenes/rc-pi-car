@@ -1,5 +1,5 @@
 ####################################################################
-# Ruben Cardenes -- Feb 2019
+# Ruben Cardenes -- Feb 2020
 #
 # File:        controller_server_on_pi.py
 # Description: This program runs in a Raspberry PI and uses the PS4 controller to
@@ -40,29 +40,18 @@ ENB_PWM = GPIO.PWM(ENB, 100)
 ENA_PWM.start(0)
 ENB_PWM.start(0)
 
+stickLeft_Horiz  = 0
+stickLeft_Vert   = 1
+stickRight_Horiz = 2
+stickRight_Vert  = 3
 axisR2 = 4
 axisL2 = 5
-
-if sys.platform == 'darwin'
-    stickLeft_Horiz  = 0
-    stickLeft_Vert   = 1
-    stickRight_Horiz = 2
-    stickRight_Vert  = 3
-
-if sys.platform == 'linux'
-    stickLeft_Horiz  = 0
-    stickLeft_Vert   = 1
-    stickRight_Horiz = 3
-    stickRight_Vert  = 4
-
-
-sq = 0
-x  = 1
-cr = 2
-tr = 3
-r1 = 4
-l1 = 5
-
+sq = 0 # Square button
+x  = 1 # X Button
+cr = 2 # Circle button
+tr = 3 # Triangle button
+l1 = 4 # L1 Button
+r1 = 5 # L2 Button
 
 max_vz = 50
 max_lr = 60
@@ -129,9 +118,11 @@ while True:
                 if two_axis_control:
                     event_index_vz = stickLeft_Vert
                     event_index_lr = stickRight_Horiz
+                # Only Left axis control
                 if left_axis_control:
                     event_index_vz = stickLeft_Vert
                     event_index_lr = stickLeft_Horiz
+                # Only Right axis control
                 if right_axis_control:
                     event_index_vz = stickRight_Vert
                     event_index_lr = stickRight_Horiz
