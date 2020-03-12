@@ -42,10 +42,19 @@ ENB_PWM.start(0)
 
 axisR2 = 4
 axisL2 = 5
-stickLeft_Horiz  = 0
-stickLeft_Vert   = 1
-stickRight_Horiz = 2
-stickRight_Vert  = 3
+
+if sys.platform == 'darwin'
+    stickLeft_Horiz  = 0
+    stickLeft_Vert   = 1
+    stickRight_Horiz = 2
+    stickRight_Vert  = 3
+
+if sys.platform == 'linux'
+    stickLeft_Horiz  = 0
+    stickLeft_Vert   = 1
+    stickRight_Horiz = 3
+    stickRight_Vert  = 4
+
 
 sq = 0
 x  = 1
