@@ -1,7 +1,7 @@
 # rc-pi-car
 Python code to control remotely a Raspberry PI car using Playstation 4 controller connected to a PC and receieve the video from a camera located in the car to a browser
 
-![rc-pi-car prototype](/rc-pi-car-prototype.png)
+![rc-pi-car prototype](rc-pi-car-prototype.png)
 
 
 # Description:
@@ -93,15 +93,33 @@ This feature is provided by the ENA_PWM and ENB_PWM ChangeDutyCycle(value) metho
 
 ## Notes
 
-My initial idea was to use the integrated bluetooth on the PI to control the car with the PS4. It didn't worked quite well. I managed to connect the PS4 controller device and sned the right commands to the PI. There are however three problems with this approack: 
-- First one is that when I turned on wifi and bluetooh simultaneously in the PI, they interfere severely and makes the wifi connection to fail miserably, so there is no chance to receive a decent video signal from the camera. Sometimes I wasn't able to connect the PI via ssh or took more than a minute. Ridiculous.    
-- Second: connection of the controller with bluetooh is a bit cumbersome and you have to start it manually every time on both sides, plus I found it not very stable. 
+My initial idea was to use the integrated bluetooth on the PI to control the car with the PS4. It didn't worked quite well. I managed to connect the PS4 controller device and send the right commands to the PI. There are however three problems with this approach: 
+- First one is that when I turned on wifi and bluetooth simultaneously in the PI, they interfere severely and makes the wifi connection to fail miserably, so there is no chance to receive a decent video signal from the camera. Sometimes I wasn't able to connect the PI via ssh or took more than a minute. Ridiculous.    
+- Second: connection of the controller with bluetooth is a bit cumbersome and you have to start it manually every time on both sides, plus I found it not very stable. 
 - Third: the range of bluetooh is not going to be as good as that provided by wifi.
 
 Therefore, my solution here is to simply connect the PS4 controller to my computer using a USB cable, and send the PS4 controller signal from my computer to the PI, while at the same time receive video to my computer in the web browser. All is done by wifi and delay is negligible. It allows me to sit with my PC and run the car whenever I have wifi coverage (if the car does#t get stuck in any place). It works just great. 
 
-I had some issues with the power supply. The Raspberry PI needs 5 V power supply than can be provided by the L298N H-bridge. However, I notice that if I use a set of 6 cheap AAA batteries, it wasnt enough to power the PI, so I added three more. I will change that to a Lipo battery or to better batteries. 
+I had some issues with the power supply. The Raspberry PI needs 5 V power supply than can be provided by the L298N H-bridge. However, I notice that if I use a set of 6 cheap AAA batteries, it wasn't enough to power the PI, so I added three more. 
+That was not very practical for several reasons (costs, weight, capacity balance, battery change). Therefore, I changed that to a 2S 7.4 V Lipo battery with 4000 mA/h capacity. 
 To save battery life, when I was testing the setup, I simply connected the PI using a micro USB power cable, which can be combined with the batteries with no problem. 
+
+## Project costs:
+
+- Raspberry Pi 3B+ with case & charger:  53,90 €
+- Pi 3 B+ camera module:                 27,99 €
+- Remote control Car toyen:              19,99 € 
+- L298N HBridge motor control:            7,09 €
+- Lipo battery 2S 7.4 V 4000 mA/h:       19,99 €  
+- Jumper Cable set Elegoo:                5,94 €
+- Total:                                134,90 €
+
+Additional: 
+- Lipo battery charger: 35,99 € 
+
+Prices are approximate, and components were bought around end of 2019 
+
+I don't count obvious additional like PC, PS4 controller, old batteries, multimeter. 
 
 ## Credits
 

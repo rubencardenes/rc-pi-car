@@ -53,7 +53,7 @@ class PS4Controller(object):
         server_address = (address, port)
         print('connecting to {} port {}'.format(address, port))
         self.sock.connect(server_address)
-
+        self.axis_data = {i:0 for i in range(7)}
         self.verbose = True
 
     def listen_and_send(self):
@@ -94,8 +94,18 @@ class PS4Controller(object):
                 if hadEvent:
 
                     # If platform is linux we need to change some values in axis_data
+                    os.system('clear')
+                    print("Axis before")
+                    pprint.pprint(self.axis_data)
                     if sys.platform == 'linux':
-                        self.axis_data[2], self.axis_data[3], self.axis_data[4] = self.axis_data[4], self.axis_data[2], self.axis_data[3]
+                        #self.axis_data[2], self.axis_data[3], self.axis_data[4] = self.axis_data[4], self.axis_data[2], self.axis_data[3]
+                        temp2 = self.axis_data[2]
+                        temp3 = self.axis_data[3]
+                        temp4 = self.axis_data[4]
+                        self.axis_data[2] = temp4
+                        self.axis_data[3] = temp2
+                        self.axis_data[4] = temp3
+
 
                     self.event_dict['axis'] = self.axis_data
                     self.event_dict['button'] = self.button_data
@@ -107,9 +117,9 @@ class PS4Controller(object):
                     #    self.verbose = not self.verbose
 
                     if self.verbose:
-                        os.system('clear')
-                        print("Button ")
-                        pprint.pprint(self.button_data)
+
+                        # print("Button ")
+                        # pprint.pprint(self.button_data)
                         print("Axis ")
                         pprint.pprint(self.axis_data)
                         # print("Motion ")
@@ -123,6 +133,6 @@ if __name__ == "__main__":
         server_hostname = sys.argv[1]
     print("Starting connection to ", server_hostname)
     ps4.init(server_hostname, 10200)
-    t = Thread(target=ps4.listen_and_send(), args=()).start()
-    # Non-threaded version
-    # ps4.listen_and_send()
+    #t = Thread(target=ps4.listen_and_send(), args=()).start()
+    #Non-threaded version
+    ps4.listen_and_send()
